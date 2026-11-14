@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hábitos diarios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <div class="marca">
+      <span class="marca-nombre">Hábitos diarios</span>
+      <button class="icono" id="btn-tema" type="button" aria-label="Cambiar entre modo claro y oscuro">◐</button>
+    </div>
+
+    <header class="hero">
+      <div class="hero-texto">
+        <div class="sello" aria-hidden="true"><b id="sello-dia">1</b><span id="sello-mes">ene</span></div>
+        <p class="fecha" id="fecha"></p>
+        <h1 id="saludo">Hola</h1>
+        <p class="progreso-texto"><span id="progreso-texto">0 de 0</span> completados hoy</p>
+        <p class="mensaje" id="mensaje-dia" hidden></p>
+      </div>
+      <div class="anillo" id="barra" role="progressbar" aria-label="Progreso de hoy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span id="anillo-pct">0%</span>
+      </div>
+    </header>
+
+    <main class="grilla">
+      <section class="panel p-habitos" aria-labelledby="t-habitos">
+        <h2 id="t-habitos">🌱 Hábitos</h2>
+        <form class="form-habito" id="form-habito">
+          <input type="text" id="habito-nombre" placeholder="Nuevo hábito, por ejemplo: leer 20 minutos" maxlength="60" required aria-label="Nombre del hábito">
+          <fieldset class="dias-sel">
+            <legend>Días que lo practicás</legend>
+            <label class="chip"><input type="checkbox" value="1" checked aria-label="Lunes"><span>L</span></label>
+            <label class="chip"><input type="checkbox" value="2" checked aria-label="Martes"><span>M</span></label>
+            <label class="chip"><input type="checkbox" value="3" checked aria-label="Miércoles"><span>X</span></label>
+            <label class="chip"><input type="checkbox" value="4" checked aria-label="Jueves"><span>J</span></label>
+            <label class="chip"><input type="checkbox" value="5" checked aria-label="Viernes"><span>V</span></label>
+            <label class="chip"><input type="checkbox" value="6" checked aria-label="Sábado"><span>S</span></label>
+            <label class="chip"><input type="checkbox" value="0" checked aria-label="Domingo"><span>D</span></label>
+          </fieldset>
+          <fieldset class="colores-sel">
+            <legend>Color</legend>
+            <label class="color"><input type="radio" name="color-habito" value="#0f766e" checked aria-label="Verde azulado"><span style="--c:#0f766e"></span></label>
+            <label class="color"><input type="radio" name="color-habito" value="#e2603f" aria-label="Coral"><span style="--c:#e2603f"></span></label>
+            <label class="color"><input type="radio" name="color-habito" value="#7c5cd6" aria-label="Violeta"><span style="--c:#7c5cd6"></span></label>
+            <label class="color"><input type="radio" name="color-habito" value="#2f6fe4" aria-label="Azul"><span style="--c:#2f6fe4"></span></label>
+            <label class="color"><input type="radio" name="color-habito" value="#d6457f" aria-label="Rosa"><span style="--c:#d6457f"></span></label>
+            <label class="color"><input type="radio" name="color-habito" value="#d99a14" aria-label="Ámbar"><span style="--c:#d99a14"></span></label>
+          </fieldset>
+          <button type="submit" class="boton">Agregar hábito</button>
+        </form>
+        <ul class="lista" id="lista-habitos"></ul>
+        <p class="vacio" id="vacio-habitos">Todavía no tenés hábitos. Creá el primero arriba.</p>
+      </section>
+
+      <section class="panel p-tareas" aria-labelledby="t-tareas">
+        <h2 id="t-tareas">✅ Tareas</h2>
+        <form class="form-tarea" id="form-tarea">
+          <input type="text" id="tarea-titulo" placeholder="¿Qué tenés que hacer?" maxlength="120" required aria-label="Título de la tarea">
+          <select id="tarea-prioridad" aria-label="Prioridad">
+            <option value="alta">Alta</option>
+            <option value="media" selected>Media</option>
+            <option value="baja">Baja</option>
+          </select>
+          <input type="date" id="tarea-fecha" aria-label="Fecha límite">
+          <button type="submit" class="boton">Agregar tarea</button>
+        </form>
+        <div class="filtros" id="filtros-tareas">
+          <button type="button" data-filtro="todas" aria-pressed="true">Todas</button>
+          <button type="button" data-filtro="pendientes" aria-pressed="false">Pendientes</button>
+          <button type="button" data-filtro="hechas" aria-pressed="false">Completadas</button>
+        </div>
+        <ul class="lista" id="lista-tareas"></ul>
+        <p class="vacio" id="vacio-tareas">Todavía no hay tareas. Agregá la primera arriba.</p>
+      </section>
+
+      <section class="panel p-resumen ancho" aria-labelledby="t-semana">
+        <h2 id="t-semana">📊 Resumen de la semana</h2>
+        <dl class="stats" id="stats"></dl>
+        <div class="semana" id="semana"></div>
+      </section>
+    </main>
+
+    <footer class="pie">
+      <p>Tus datos se guardan solo en este navegador. Exportalos para tener un respaldo o llevarlos a otro dispositivo.</p>
+      <div class="pie-botones">
+        <button type="button" class="boton-sec" id="btn-exportar">Exportar datos</button>
+        <button type="button" class="boton-sec" id="btn-importar">Importar datos</button>
+        <input type="file" id="archivo-importar" accept=".json,application/json" hidden>
+      </div>
+      <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
